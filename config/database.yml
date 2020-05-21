@@ -24,7 +24,7 @@ default: &default
 development:
   <<: *default
   database: pokemon_lite_api_development
-  
+
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -52,6 +52,7 @@ development:
 test:
   <<: *default
   database: pokemon_lite_api_test
+  
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
