@@ -29,3 +29,10 @@ rows.each do |row|
     base_exp: row[:base_exp],
   )
 end
+
+rows.each do |row|
+  trainer = Trainer.find_by(name: row[:t_name])
+  pokemon = Pokemon.find_by(name: row[:name])
+
+  trainer.pokemons << pokemon
+end
