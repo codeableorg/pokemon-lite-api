@@ -9,7 +9,7 @@ File.open("db/pokemon-lite-api.csv", "r") do |file|
       name: line[:t_name],
       gender:line[:t_gender],
       home_region: line[:t_region],
-      team_member_status: line[:t_team_member] == "true" ? "active" : "inactive",
+      team_member_status: line[:t_team_member] == "true",
       wins: line[:wins],
       losses: line[:losses]
     }
