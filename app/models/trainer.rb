@@ -3,7 +3,7 @@ class Trainer < ApplicationRecord
   attr_default :team_member, false
   attr_default :losses, 0
   attr_default :wins, 0
-  validates :name, presence: tru
+  validates :name, presence: true
   validates :gender, presence: true
   validates :region, presence: true
 end
