@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_174232) do
+ActiveRecord::Schema.define(version: 2020_05_21_213611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,25 +24,24 @@ ActiveRecord::Schema.define(version: 2020_05_21_174232) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "pokemons_trainers", force: :cascade do |t|
+    t.bigint "pokemon_id", null: false
+    t.bigint "trainer_id", null: false
+    t.index ["pokemon_id"], name: "index_pokemons_trainers_on_pokemon_id"
+    t.index ["trainer_id"], name: "index_pokemons_trainers_on_trainer_id"
+  end
+
   create_table "trainers", force: :cascade do |t|
     t.string "name"
     t.string "gender"
-    t.integer "age"
     t.string "home_region"
-    t.string "team_member_status"
+    t.boolean "team_member_status"
     t.integer "wins"
     t.integer "losses"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "trainers_pokemons", force: :cascade do |t|
-    t.bigint "pokemon_id", null: false
-    t.bigint "trainer_id", null: false
-    t.index ["pokemon_id"], name: "index_trainers_pokemons_on_pokemon_id"
-    t.index ["trainer_id"], name: "index_trainers_pokemons_on_trainer_id"
-  end
-
-  add_foreign_key "trainers_pokemons", "pokemons"
-  add_foreign_key "trainers_pokemons", "trainers"
+  add_foreign_key "pokemons_trainers", "pokemons"
+  add_foreign_key "pokemons_trainers", "trainers"
 end
