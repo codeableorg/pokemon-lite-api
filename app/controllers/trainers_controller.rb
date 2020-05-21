@@ -46,6 +46,6 @@ class TrainersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def trainer_params
-      params.require(:trainer).permit(:name, :gender, :age, :home_region, :team_member_status, :wins, :losses)
+      params.require(:trainer).permit(:name, :gender, :age, :home_region, :team_member, :wins, :losses)
     end
 end
