@@ -24,11 +24,11 @@ ActiveRecord::Schema.define(version: 2020_05_21_174232) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "trainer_pokemons", force: :cascade do |t|
+  create_table "pokemons_trainers", force: :cascade do |t|
     t.bigint "pokemon_id", null: false
     t.bigint "trainer_id", null: false
-    t.index ["pokemon_id"], name: "index_trainer_pokemons_on_pokemon_id"
-    t.index ["trainer_id"], name: "index_trainer_pokemons_on_trainer_id"
+    t.index ["pokemon_id"], name: "index_pokemons_trainers_on_pokemon_id"
+    t.index ["trainer_id"], name: "index_pokemons_trainers_on_trainer_id"
   end
 
   create_table "trainers", force: :cascade do |t|
@@ -43,6 +43,6 @@ ActiveRecord::Schema.define(version: 2020_05_21_174232) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "trainer_pokemons", "pokemons"
-  add_foreign_key "trainer_pokemons", "trainers"
+  add_foreign_key "pokemons_trainers", "pokemons"
+  add_foreign_key "pokemons_trainers", "trainers"
 end

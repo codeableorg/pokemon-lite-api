@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+pokemon = Pokemon.create(name: "Pikachu")
+p pokemon.trainers
+trainer = Trainer.create(name: "Ash")
+trainer.pokemons = [pokemon]
+p trainer.pokemons
