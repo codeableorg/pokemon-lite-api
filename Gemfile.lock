@@ -56,6 +56,8 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2, >= 2.2.2)
+    attribute-defaults (0.9.0)
+      activerecord (>= 5.0.0, < 7.0.0)
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     builder (3.2.4)
@@ -152,6 +154,7 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
+  attribute-defaults
   bootsnap (>= 1.4.2)
   byebug
   listen (~> 3.2)
