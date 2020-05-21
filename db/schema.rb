@@ -24,13 +24,6 @@ ActiveRecord::Schema.define(version: 2020_05_21_174232) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "pokemons_trainers", force: :cascade do |t|
-    t.bigint "pokemon_id", null: false
-    t.bigint "trainer_id", null: false
-    t.index ["pokemon_id"], name: "index_pokemons_trainers_on_pokemon_id"
-    t.index ["trainer_id"], name: "index_pokemons_trainers_on_trainer_id"
-  end
-
   create_table "trainers", force: :cascade do |t|
     t.string "name"
     t.string "gender"
@@ -43,6 +36,13 @@ ActiveRecord::Schema.define(version: 2020_05_21_174232) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "pokemons_trainers", "pokemons"
-  add_foreign_key "pokemons_trainers", "trainers"
+  create_table "trainers_pokemons", force: :cascade do |t|
+    t.bigint "pokemon_id", null: false
+    t.bigint "trainer_id", null: false
+    t.index ["pokemon_id"], name: "index_trainers_pokemons_on_pokemon_id"
+    t.index ["trainer_id"], name: "index_trainers_pokemons_on_trainer_id"
+  end
+
+  add_foreign_key "trainers_pokemons", "pokemons"
+  add_foreign_key "trainers_pokemons", "trainers"
 end
