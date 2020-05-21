@@ -8,5 +8,5 @@
 pokemon = Pokemon.create(name: "Pikachu")
 p pokemon.trainers
 trainer = Trainer.create(name: "Ash")
-trainer.pokemons = [pokemon]
+trainer.pokemons << pokemon
 p trainer.pokemons
