@@ -29,9 +29,10 @@ csv.each do |row|
     main_type: row[:main_type], 
     main_ability: row[:main_ability]
   )
+  
   if trainer.id && pokemon.id
     trainer.pokemons << pokemon
   end 
 end
 p "finishing seed"
- 
+
