@@ -15,16 +15,16 @@ class PokemonsController < ApplicationController
     pokemon_params.permit(:t_name, :t_gender, :t_region, :t_team_member, :wins, :losses)
     @pokemon = Pokemon.new(pokemon_params)
     if @pokemon.save
-       json: @pokemon
+      render json: @pokemon
     else
-       json: @pokemon.errors
+      render json: @pokemon.errors
     end
   end
 
   def update
     @pokemon = Pokemon.find(params[:id]) # Find the pokemon you want to update
     if @pokemon.update_attributes(pokemon_params) # Validation using the same private method as before
-      render json: @pokemon # render the updated record back
+      render render json: @pokemon # render the updated record back
     else
       render json: @pokemon.errors, status: :unprocessable_entity # render errors
     end

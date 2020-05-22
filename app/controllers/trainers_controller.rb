@@ -15,9 +15,9 @@ class TrainersController < ApplicationController
     trainer_params.permit(:name, :base_exp, :main_type, :main_ability)
     @trainer = Trainer.new(trainer_params)
     if @trainer.save
-       json: @trainer
+      render json: @trainer
     else
-       json: @trainer.errors
+      render json: @trainer.errors
     end
   end
 
