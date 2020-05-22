@@ -6,16 +6,17 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
-data = CSV.read('pokemon-lite-api.csv', headers: true, header_converters: :symbol)
-
+puts 'seeds.rb begins here'
+data = CSV.read('pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
+puts 'marca'
 data.each do |row|
-    pokemon = Pokemon.find_or_create_by!(
+    pokemon = Pokemon.find_or_create_by(
         name:row[:name], 
         main_ability:row[:main_ability], 
         main_type:row[:main_type], 
         base_experience: row[:base_exp]
     )
-    trainer = Trainer.find_or_create_by!(
+    trainer = Trainer.find_or_create_by(
         name:row[:t_name], 
         gender:row[:t_gender], 
         home_region:[:t_region], 
@@ -24,6 +25,7 @@ data.each do |row|
         losses:row[:losses]
     )
     
-    # puts pokemon
+    pokemon.trainers << trainer
 
 end 
+puts 'seeds.rb finishes here'
