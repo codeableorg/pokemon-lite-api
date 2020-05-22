@@ -1,5 +1,5 @@
 class Trainer < ApplicationRecord
-    has_many :pokemons , class_name: "TrainerPokemon"
+    has_many :captures
     
     validates :name, presence: true, uniqueness: true
     validates :gender, presence: true
