@@ -15,9 +15,9 @@ class TrainersController < ApplicationController
     trainer_params.permit(:name, :base_exp, :main_type, :main_ability)
     @trainer = Trainer.new(trainer_params)
     if @trainer.save
-       json: @trainer
+      render json: @trainer
     else
-       json: @trainer.errors
+      render json: @trainer.errors
     end
   end
 
@@ -32,7 +32,6 @@ class TrainersController < ApplicationController
 
   def destroy
     @trainer = Trainer.find(params[:id])
-    p @trainer
     @trainer.destroy
     render json: { status: 'Successfully destroyed', data: @trainer }, status: :ok
   end
@@ -40,6 +39,6 @@ class TrainersController < ApplicationController
   private
 
   def trainer_params
-    params.require(:trainer).permit(:t_name, :base_exp, :main_type, :main_ability, :created_at, :updated_at)
+    params.require(:trainer).permit(:t_name, :t_gender, :t_region, :t_team_member, :wins, :losses)
   end
 end

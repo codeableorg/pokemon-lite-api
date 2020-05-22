@@ -2,8 +2,8 @@
 
 class PokemonsController < ApplicationController
   def index
-    @pokemon = Pokemon.all
-    render json: @pokemon
+    @pokemons = Pokemon.all
+    render json: @pokemons
   end
 
   def show
@@ -12,12 +12,12 @@ class PokemonsController < ApplicationController
   end
 
   def create(pokemon_params)
-    pokemon_params.permit(:t_name, :t_gender, :t_region, :t_team_member, :wins, :losses)
+    pokemon_params.permit(:name, :base_exp, :main_type, :main_ability)
     @pokemon = Pokemon.new(pokemon_params)
     if @pokemon.save
-       json: @pokemon
+      render json: @pokemon
     else
-       json: @pokemon.errors
+      render json: @pokemon.errors
     end
   end
 
