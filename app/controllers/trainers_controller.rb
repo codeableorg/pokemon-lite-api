@@ -32,7 +32,7 @@ class TrainersController < ApplicationController
   #DELETE /trainers/{id}
   def destroy
     @trainer = Trainer.find(params[:id])
-    @trainer.delete!
+    @trainer.delete
     render json: @trainer, status: :ok
   end
 
