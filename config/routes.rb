@@ -1,3 +1,14 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :pokemons
+  resources :trainers
+
+  # Nested resources
+  resources :trainers do
+    resources :pokemons
+  end
+
+  resources :pokemons do
+    resources :trainers
+  end
+
 end
