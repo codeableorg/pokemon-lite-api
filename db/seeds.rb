@@ -7,12 +7,9 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 
-rows = CSV.read(Rails.root.join('db', 'pokemon-lite-api.csv'), {
-  headers: true,
-  header_converters: :symbol,
-})
+table = CSV.read('db/pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
 
-rows.each do |row|
+table.each do |row|
   Trainer.find_or_create_by(
     name: row[:t_name],
     gender: row[:t_gender],
@@ -28,11 +25,8 @@ rows.each do |row|
     main_type: row[:main_type],
     base_exp: row[:base_exp],
   )
-end
 
-rows.each do |row|
   trainer = Trainer.find_by(name: row[:t_name])
-  pokemon = Pokemon.find_by(name: row[:name])
-
+  pokemon = Pokemon.find_by(name: row[:name])  
   trainer.pokemons << pokemon
 end
