@@ -3,8 +3,9 @@ class CreateTrainers < ActiveRecord::Migration[6.0]
     create_table :trainers do |t|
       t.string :name
       t.string :gender
+      t.integer :age
       t.string :region
-      t.boolean :team_member
+      t.string :team_member
       t.integer :wins
       t.integer :losses
 
