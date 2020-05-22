@@ -8,7 +8,6 @@
 
 require 'csv'
 
-p "starting seed"
 
 csv = CSV.read("db/pokemon-lite-api.csv", { headers: true, header_converters: :symbol }) 
 
@@ -34,5 +33,5 @@ csv.each do |row|
     trainer.pokemons << pokemon
   end 
 end
-p "finishing seed"
+
 
