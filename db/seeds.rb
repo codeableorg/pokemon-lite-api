@@ -30,16 +30,15 @@ File.open("db/pokemon-lite-api.csv", "r") do |file|
   .map {|pokemon| Pokemon.find_or_create_by(pokemon)}
 
   trainers.each do |trainer|
+    trainer_pokemon_for_build = trainer.pokemons
     pokemon_for_trainer = lines
     .select {|line| line[:t_name] == trainer.name }
     .map{ |pokemon_line| pokemons.find{|pokemon| pokemon.name == pokemon_line[:name] }}
+    .map do |pokemon| 
+      trainer_pokemon_for_build
+      .build(pokemon: pokemon, experience: pokemon.base_experience)
+      .save
+    end
 
-    trainer.pokemons = pokemon_for_trainer
   end
 end
-
-# pokemon = Pokemon.create(name: "Pikachu")
-# p pokemon.trainers
-# trainer = Trainer.create(name: "Ash")
-# trainer.pokemons << pokemon
-# p trainer.pokemons

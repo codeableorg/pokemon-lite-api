@@ -1,5 +1,6 @@
 class Trainer < ApplicationRecord
-    has_and_belongs_to_many :pokemons 
+    has_many :pokemons , class_name: "TrainerPokemon"
+    
     validates :name, presence: true, uniqueness: true
     validates :gender, presence: true
     validates :wins, :losses, numericality: {greater_than_or_equal_to: 0}
