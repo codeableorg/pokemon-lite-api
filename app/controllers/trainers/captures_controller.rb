@@ -7,10 +7,10 @@ class Trainers::CapturesController < ApplicationController
   end
 
   def create
-    @pokemon = Pokemon.find_by(name: capture_params()["name"])
-    return render json: {"error": "the pokemon with name #{capture_params()["name"]} doesn't exist"} if @pokemon.nil?
+    @pokemon = Pokemon.find_by(name: create_params()["name"])
+    return render json: {"error": "the pokemon with name #{create_params()["name"]} doesn't exist"} if @pokemon.nil?
 
-    @capture = @trainer.captures.build(pokemon: @pokemon, experience: capture_params()["experience"])
+    @capture = @trainer.captures.build(pokemon: @pokemon, experience: create_params()["experience"])
     if @capture.save  
       render json: @capture
     else
@@ -23,7 +23,7 @@ class Trainers::CapturesController < ApplicationController
   end
 
   def update
-    if @capture.update_attributes(capture_params())
+    if @capture.update_attributes(update_params())
       render json: @capture
     else
       render json: @capture.errors
@@ -41,13 +41,16 @@ class Trainers::CapturesController < ApplicationController
     return render json: {"error": "the trainer with id #{params[:trainer_id]} doesn't exist"} if @trainer.nil?
   end
 
-  private
   def get_capture
     @capture = Capture.find_by(trainer_id: params[:trainer_id], id: params[:id])
     return render json: {"error" => "The trainner with id #{params[:trainer_id]} doesn't have a capture with id #{params[:id]}"} if @capture.nil?
   end
 
-  def capture_params
-    params.require(:capture).permit(:name, :experience)
+  def create_params
+    params.require(:capture).permit(:pokemon_name, :experience)
+  end
+
+  def update_params
+    params.require(:capture).permit(:experience)
   end
 end
