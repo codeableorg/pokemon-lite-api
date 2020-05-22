@@ -38,7 +38,7 @@ class Trainers::PokemonsController < ApplicationController
   private
   def get_trainer
     @trainer = Trainer.find_by(id: params[:trainer_id])
-    return render json: {"error": "this trainer with id #{params[:trainer_id]}  doesn't exist"} if @trainer.nil?
+    return render json: {"error": "the trainer with id #{params[:trainer_id]} doesn't exist"} if @trainer.nil?
   end
 
   private
