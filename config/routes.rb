@@ -2,6 +2,6 @@ Rails.application.routes.draw do
   resources :pokemons
 
   resources :trainers do
-    resources :pokemons, module: :trainers
+    resources :captures, module: :trainers
   end
 end
