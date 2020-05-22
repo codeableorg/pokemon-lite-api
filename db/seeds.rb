@@ -11,24 +11,27 @@ require 'csv'
 puts 'seeds.rb begins here'
 data = CSV.read('db/pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
 data.each do |row|
-    
-    pokemon = Pokemon.find_or_create_by(
-        name:row[:name], 
-        main_ability:row[:main_ability], 
-        main_type:row[:main_type], 
-        base_experience: row[:base_exp]
-    )
-    
+
     trainer = Trainer.find_or_create_by(
         name:row[:t_name], 
         gender:row[:t_gender], 
         home_region:row[:t_region], 
-        team_member_status:row[:t_team_member], 
+        team_member_status:['true','false'].include?(row[:t_team_member]) ? row[:t_team_member] : nil, 
         wins:row[:wins], 
         losses:row[:losses]
     )
+
+    if trainer.id 
+
+        pokemon = Pokemon.find_or_create_by(
+            name:row[:name], 
+            main_ability:row[:main_ability], 
+            main_type:row[:main_type], 
+            base_experience: row[:base_exp]
+        )
     
-    pokemon.trainers << trainer
+        pokemon.trainers << trainer
+    end
 
   pokemon.trainers << trainer
 end
