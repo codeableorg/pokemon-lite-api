@@ -7,8 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 puts 'seeds.rb begins here'
-data = CSV.read('pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
-puts 'marca'
+data = CSV.parse('db/pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
 data.each do |row|
     pokemon = Pokemon.find_or_create_by(
         name:row[:name], 
