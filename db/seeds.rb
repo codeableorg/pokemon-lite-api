@@ -26,11 +26,12 @@ file.each do |item|
     name: item['name'],
     base_experience: item['base_exp'],
     main_type: item['main_type'],
-    main_ability: item['main_hability']
+    main_ability: item['main_ability']
   })
 end
 trainers.uniq! {|e| e[:name] }
 pokes.uniq! {|e| e[:name] }
+
 Trainer.create(trainers)
 Pokemon.create(pokes)
 

@@ -1,30 +1,29 @@
 class TrainerPokemonsController < ApplicationController
   before_action :set_trainer_pokemon, only: [:show, :update, :destroy]
 
-  # GET /trainer_pokemons
+  # GET /trainers/:trainer_id/pokemons List all the pokemon of one trainer
   def index
-    @trainer_pokemons = TrainerPokemon.all
-
+    @trainer_pokemons = TrainerPokemon.where(trainer_id: params['trainer_id'])
     render json: @trainer_pokemons
   end
 
-  # GET /trainer_pokemons/1
+  # GET /trainers/:trainer_id/pokemon/:id Show one pokemon of one trainer
   def show
     render json: @trainer_pokemon
   end
 
-  # POST /trainer_pokemons
+  # POST /trainers/:trainer_id/pokemons Create a pokemon for one trainer
   def create
     @trainer_pokemon = TrainerPokemon.new(trainer_pokemon_params)
 
     if @trainer_pokemon.save
-      render json: @trainer_pokemon, status: :created, location: @trainer_pokemon
+      render json: @trainer_pokemon, status: :created
     else
       render json: @trainer_pokemon.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /trainer_pokemons/1
+  # PATCH/PUT /trainers/:trainer_id/pokemons/:id Update a pokemon for one trainer
   def update
     if @trainer_pokemon.update(trainer_pokemon_params)
       render json: @trainer_pokemon
@@ -33,7 +32,7 @@ class TrainerPokemonsController < ApplicationController
     end
   end
 
-  # DELETE /trainer_pokemons/1
+  # DELETE /trainers/:trainer_id/pokemons/:id Destroy a pokemon for one trainer
   def destroy
     @trainer_pokemon.destroy
   end
@@ -41,7 +40,7 @@ class TrainerPokemonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trainer_pokemon
-      @trainer_pokemon = TrainerPokemon.find(params[:id])
+      @trainer_pokemon = TrainerPokemon.find_by(trainer_id: params[:trainer_id], pokemon_id: params[:id])
     end
 
     # Only allow a trusted parameter "white list" through.

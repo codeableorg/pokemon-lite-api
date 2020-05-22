@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :trainer_pokemons
+  #resources :trainer_pokemons
   resources :pokemons
   resources :trainers
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :trainers do
+    resources :pokemons, :controller => "trainer_pokemons"
+  end
 end
