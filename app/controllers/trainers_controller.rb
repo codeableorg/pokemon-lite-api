@@ -10,31 +10,31 @@ class TrainersController < ApplicationController
   end 
 
   def create
-    @trainers = Trainer.new(trainer_params)
-    if @trainer_params.save
-      render json: @trainers
+    @trainer = Trainer.new(trainer_params)
+    if @trainer.save
+      render json: @trainer
     else
-      render json: @trainers.errors
+      render json: @trainer.errors
     end
   end
 
   def destroy
-    @trainers = Trainer.find(params[:id])
-    @trainers.destroy
-    render json: {status: "Successfully destroyed", data: @trainers}, status: :ok
+    @trainer = Trainer.find(params[:id])
+    @trainer.destroy
+    render json: {status: "Successfully destroyed", data: @trainer}, status: :ok
   end
 
   def update
-    @trainers = Trainer.find(params[:id])
-    if @trainers.update_attributes(trainer_params)
-      render json: @trainers
+    @trainer = Trainer.find(params[:id])
+    if @trainer.update_attributes(trainer_params)
+      render json: @trainer
     else
-      render json: @trainers.errors, status: :unprocessable_entity
+      render json: @trainer.errors, status: :unprocessable_entity
     end
   end
 
   private
   def trainer_params
-    params.require(:trainer).permit(:name, :genre, :home_region, :team_member_status, :wins, :losses)
+    params.require(:trainer).permit(:name, :gender, :home_region, :team_member_status, :wins, :losses)
   end
 end
