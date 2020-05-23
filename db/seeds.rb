@@ -9,29 +9,25 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'csv'
 puts 'seeds.rb begins here'
-data = CSV.read('db/pokemon-lite-api.csv', {headers: true, header_converters: :symbol})
+data = CSV.read('db/pokemon-lite-api.csv', { headers: true, header_converters: :symbol })
 data.each do |row|
+  trainer = Trainer.find_or_create_by(
+    name: row[:t_name],
+    gender: row[:t_gender],
+    home_region: row[:t_region],
+    team_member_status: %w[true false].include?(row[:t_team_member]) ? row[:t_team_member] : nil,
+    wins: row[:wins],
+    losses: row[:losses]
+  )
 
-    trainer = Trainer.find_or_create_by(
-        name:row[:t_name], 
-        gender:row[:t_gender], 
-        home_region:row[:t_region], 
-        team_member_status:['true','false'].include?(row[:t_team_member]) ? row[:t_team_member] : nil, 
-        wins:row[:wins], 
-        losses:row[:losses]
-    )
+  next unless trainer.id
 
-    if trainer.id 
-
-        pokemon = Pokemon.find_or_create_by(
-            name:row[:name], 
-            main_ability:row[:main_ability], 
-            main_type:row[:main_type], 
-            base_experience: row[:base_exp]
-        )
-    
-        pokemon.trainers << trainer
-    end
+  pokemon = Pokemon.find_or_create_by(
+    name: row[:name],
+    main_ability: row[:main_ability],
+    main_type: row[:main_type],
+    base_experience: row[:base_exp]
+  )
 
   pokemon.trainers << trainer
 end
