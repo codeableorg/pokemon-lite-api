@@ -53,9 +53,9 @@ class TrainersController < ApplicationController
   end
 
   private
-
   def trainer_params
-    puts 'second mark'
-    params.require(:trainer).permit(:name, :gender, :home_region, :team_member_status, :wins, :losses)
+    prm = params.require(:trainer).permit(:name, :gender, :home_region, :team_member_status, :wins, :losses)
+    prm[:team_member_status] = [true, false, 'true', 'false'].include?(prm[:team_member_status]) ? prm[:team_member_status] : nil
+    prm
   end
 end
