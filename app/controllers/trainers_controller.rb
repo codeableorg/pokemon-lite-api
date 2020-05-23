@@ -2,19 +2,25 @@
 
 class TrainersController < ApplicationController
   def index
-    @trainers = Trainer.all
+    @pokemon = Pokemon.find(params[:pokemon_id]) if params.has_key?(:pokemon_id)
+    @trainers = params.has_key?(:pokemon_id) ? @pokemon.trainers : Trainer.all 
     render json: @trainers
   end
 
   def show
-    @trainer = Trainer.find(params[:id])
+    @pokemon = Pokemon.find(params[:pokemon_id]) if params.has_key?(:pokemon_id)
+    @trainer = params.has_key?(:pokemon_id) ? @pokemon.trainers.find(params[:id]) : Trainer.find(params[:id])
     render json: @trainer
   end
 
   def create
     @trainer = Trainer.new(trainer_params)
-
     if @trainer.save
+      if params.has_key?(:pokemon_id)
+        @pokemon = Pokemon.find(params[:pokemon_id]) 
+        @pokemon.trainers << @trainer
+        return render json: @pokemon.trainers
+      end
       render json: @trainer
     else
       render json: @trainer.errors
@@ -23,15 +29,23 @@ class TrainersController < ApplicationController
 
   def destroy
     @trainer = Trainer.find(params[:id])
+    if params.has_key?(:pokemon_id)
+      @pokemon = Pokemon.find(params[:pokemon_id]) 
+      @pokemon.trainers.destroy(@trainer)
+      return render json: @pokemon.trainers
+    end
     @trainer.destroy
     render json: { status: 'Successfully destroyed', data: @trainer }, status: :ok
   end
 
   def update
     @trainer = Trainer.find(params[:id])
-    puts 'first mark'
+    if params.has_key?(:pokemon_id)
+      @pokemon = Pokemon.find(params[:pokemon_id]) 
+      @pokemon.trainers << @trainer
+      return render json: @pokemon.trainers
+    end
     if @trainer.update_attributes(trainer_params)
-      puts 'three mark'
       render json: @trainer
     else
       render json: @trainer.errors, status: :unprocessable_entity
