@@ -20,6 +20,21 @@ class PokemonsController < ApplicationController
     end
   end
 
+  def destroy
+    @pokemon = Pokemon.find(params[:id])
+    @pokemon.destroy
+    render json: { status: 'Successfully destroyed', data: @pokemon }, status: :ok
+  end
+
+  def update
+    @pokemon = Pokemon.find(params[:id])
+    if @pokemon.update_attributes(pokemon_params)
+      render json: @pokemon
+    else
+      render json: @pokemon.errors, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def pokemon_params
